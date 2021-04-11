@@ -61,8 +61,8 @@ class Menu extends Phaser.Scene {
                shipSpeed: 3,
                gameTimer: 60000
             }
-            this.sound.play('sfx_select');
-            this.scene.start('playScene');
+            this.sound.play('sfx_select'); // plays menu sfx
+            this.scene.start('playScene'); // starts game 
         }
         // hard mode 
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -70,8 +70,8 @@ class Menu extends Phaser.Scene {
                 shipSpeed: 4,
                 gameTimer: 45000
             }
-            this.sound.play('sfx_select');
-            this.scene.start('playScene'); 
+            this.sound.play('sfx_select'); // plays menu sfx
+            this.scene.start('playScene'); // starts game 
         }
     }
 }
