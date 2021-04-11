@@ -4,6 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
+        // images 
         this.load.image(
             'starfield', 
             'assets/starfield.png'
@@ -16,6 +17,7 @@ class Play extends Phaser.Scene {
             'spaceship', 
             'assets/spaceship.png'
             );
+        // animations 
         this.load.spritesheet(
             'explosion', 
             'assets/explosion.png',
@@ -25,7 +27,7 @@ class Play extends Phaser.Scene {
                 startFrame: 0,
                 endFrame: 9 
             }
-        ); 
+        );
     }
 
     create() {
@@ -157,25 +159,69 @@ class Play extends Phaser.Scene {
             this.p1Score,
             scoreConfig 
         );
+
+        // game over flag 
+        this.gameOver = false;
+
+        // 60 second clock 
+        scoreConfig.fixedWidth = 0;
+        this.clock = this.time.delayedCall(
+            game.settings.gameTimer, //clock time 
+            () => {
+                // game over text 
+                this.add.text(
+                    game.config.width / 2,
+                    game.config.height / 2,
+                    'GAME OVER',
+                    scoreConfig
+                ).setOrigin(0.5);
+                this.add.text(
+                    game.config.width / 2,
+                    game.config.height / 2 + 64,
+                    'Press (R) to Restart or ← for Menu',
+                    scoreConfig
+                ).setOrigin(0.5);
+                // ends game 
+                this.gameOver = true; 
+            }, 
+            null,
+            this
+        );
     }
 
     update() {
-        // background 
-        this.starfield.tilePositionX -= 4;
+        // resets game 
+        if (this.gameOver && 
+            Phaser.Input.Keyboard.JustDown(keyR)
+        ) {
+            this.scene.restart(); 
+        }
 
-        // rocket 
-        this.p1Rocket.update();
+        // resets game to menu 
+        if (this.gameOver &&
+            Phaser.Input.Keyboard.JustDown(keyLEFT)
+        ) {
+            this.scene.start('menuScene'); 
+        }
 
-        // ships 
-        this.ship01.update();
-        this.ship02.update();
-        this.ship03.update();
+        // stops updating when timer is finished 
+        if (!this.gameOver) {
+            // background update 
+            this.starfield.tilePositionX -= 4;
 
-        // collision 
-        this.checkCollision(this.p1Rocket, this.ship01);
-        this.checkCollision(this.p1Rocket, this.ship02);
-        this.checkCollision(this.p1Rocket, this.ship03);
+            // rocket update 
+            this.p1Rocket.update();
 
+            // ships update 
+            this.ship01.update();
+            this.ship02.update();
+            this.ship03.update();
+
+            // collision check 
+            this.checkCollision(this.p1Rocket, this.ship01);
+            this.checkCollision(this.p1Rocket, this.ship02);
+            this.checkCollision(this.p1Rocket, this.ship03);
+        }
     }
 
     // checks and updates if rocket hits ship 
@@ -209,5 +255,6 @@ class Play extends Phaser.Scene {
         // updates score with ship's point value 
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
+        this.sound.play('sfx_explosion');  // plays explosion sfx 
     }
 }
