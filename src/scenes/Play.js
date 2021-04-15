@@ -5,18 +5,21 @@ class Play extends Phaser.Scene {
 
     preload() {
         // images 
+        // background png mod 
         this.load.image(
-            'starfield', 
-            'assets/starfield.png'
-            );
+            'bg',
+            'assets/background.png'
+        );
+        // cat png mod 
         this.load.image(
-            'rocket', 
-            'assets/rocket.png'
-            );
+            'cat',
+            'assets/cat.png'
+        );
+        // whale png mod 
         this.load.image(
-            'spaceship', 
-            'assets/spaceship.png'
-            );
+            'whale',
+            'assets/whale.png'
+        );
         // animations 
         this.load.spritesheet(
             'explosion', 
@@ -32,12 +35,12 @@ class Play extends Phaser.Scene {
 
     create() {
         // adds background 
-        this.starfield = this.add.tileSprite(
+        this.bg = this.add.tileSprite(
             0, 
             0, 
             640, 
             480, 
-            'starfield'
+            'bg'
         ).setOrigin(0, 0);
         
         // adds rocket 
@@ -45,7 +48,7 @@ class Play extends Phaser.Scene {
             this, 
             game.config.width / 2,
             game.config.height - borderUISize - borderPadding,
-            'rocket'
+            'cat'
         ).setOrigin(0.5, 0);
 
         // adds ships 
@@ -53,7 +56,7 @@ class Play extends Phaser.Scene {
             this,
             game.config.width + borderUISize * 6,
             borderUISize * 4,
-            'spaceship',
+            'whale',
             0,
             30
         ).setOrigin(0, 0);
@@ -62,7 +65,7 @@ class Play extends Phaser.Scene {
             this,
             game.config.width + borderUISize * 3, 
             borderUISize * 5 + borderPadding * 2,
-            'spaceship',
+            'whale',
             0,
             20
         ).setOrigin(0, 0);
@@ -71,7 +74,7 @@ class Play extends Phaser.Scene {
             this,
             game.config.width,
             borderUISize * 6 + borderPadding * 4,
-            'spaceship',
+            'whale',
             0,
             10 
         ).setOrigin(0, 0);
@@ -82,7 +85,7 @@ class Play extends Phaser.Scene {
             borderUISize + borderPadding, 
             game.config.width, 
             borderUISize * 2,
-            0x00FF00,
+            0xc4fffe,
         ).setOrigin(0,0);
 
         // white borders
@@ -141,10 +144,10 @@ class Play extends Phaser.Scene {
         this.p1Score = 0; 
         // score display 
         let scoreConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Tahoma',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#ffffff',
+            color: '#ffa185',
             align: 'right',
             padding: {
                 top: 5,
@@ -207,7 +210,7 @@ class Play extends Phaser.Scene {
         // stops updating when timer is finished 
         if (!this.gameOver) {
             // background update 
-            this.starfield.tilePositionX -= 4;
+            this.bg.tilePositionX -= 2;
 
             // rocket update 
             this.p1Rocket.update();

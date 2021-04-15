@@ -13,10 +13,10 @@ class Menu extends Phaser.Scene {
     create() {
         // menu text config 
         let menuConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Tahoma',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#3bbaff',
+            color: '#ffffff',
             align: 'right',
             padding: {
                 top: 5,
@@ -29,23 +29,23 @@ class Menu extends Phaser.Scene {
         this.add.text(
             game.config.width / 2,
             game.config.height / 2 - borderUISize - borderPadding,
-            'ROCKET PATROL',
+            'cat patrol >:3c',
             menuConfig
         ).setOrigin(0.5);
 
         this.add.text(
             game.config.width / 2,
             game.config.height / 2,
-            'Use ←→ arrows to move & (F) to fire',
+            'Use ←→ arrows to Move & (F) to Bubble',
             menuConfig
         ).setOrigin(0.5); 
 
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
+        menuConfig.backgroundColor = '#d042ff';
+        menuConfig.color = '#ffffff';
         this.add.text(
             game.config.width / 2,
             game.config.height / 2 + borderUISize + borderPadding,
-            'Press ← for Novice or → for Expert',
+            'Press ← for Kitten or → for Wizened Cat',
             menuConfig
         ).setOrigin(0.5); 
 
