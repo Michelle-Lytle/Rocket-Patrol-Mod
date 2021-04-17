@@ -21,19 +21,31 @@ class Play extends Phaser.Scene {
             'assets/whale.png'
         );
         // animations 
+        // bubble png mod
         this.load.spritesheet(
-            'explosion', 
-            'assets/explosion.png',
+            'bubble',
+            'assets/bubble.png',
             {
                 frameWidth: 64,
                 frameHeight: 32,
                 startFrame: 0,
-                endFrame: 9 
+                endFrame: 9
             }
         );
+        // borders mod 
+        this.load.image(
+            'borderV',
+            'assets/borderV.png'
+        );
+        this.load.image(
+            'borderH',
+            'assets/borderH.png'
+        );
+
     }
 
     create() {
+
         // adds background 
         this.bg = this.add.tileSprite(
             0, 
@@ -79,46 +91,39 @@ class Play extends Phaser.Scene {
             10 
         ).setOrigin(0, 0);
 
-        // green UI background 
+        // UI background 
         this.add.rectangle(
             0, 
             borderUISize + borderPadding, 
             game.config.width, 
             borderUISize * 2,
-            0xc4fffe,
-        ).setOrigin(0,0);
+            0Xffffff,
+        ).setOrigin(0, 0);
 
-        // white borders
-        this.add.rectangle(
+        // borders
+        this.borderLeft = this.add.image(
             0, 
             0, 
-            game.config.width, 
-            borderUISize, 
-            0xFFFFFF
-        ).setOrigin(0 ,0);
+            'borderV'
+        ).setOrigin(0, 0);
 
-	    this.add.rectangle(
+        this.borderBottom = this.add.image(
             0, 
-            game.config.height - borderUISize, game.config.width, 
-            borderUISize, 
-            0xFFFFFF
-        ).setOrigin(0 ,0);
+            game.config.height - borderUISize,
+            'borderH'
+        ).setOrigin(0, 0);
 
-	    this.add.rectangle(
+        this.borderTop = this.add.image(
             0, 
             0, 
-            borderUISize, 
-            game.config.height, 
-            0xFFFFFF
-        ).setOrigin(0 ,0);
+            'borderH'
+        ).setOrigin(0, 0); 
 
-	    this.add.rectangle(
+        this.borderRight = this.add.image(
             game.config.width - borderUISize, 
             0, 
-            borderUISize, 
-            game.config.height, 
-            0xFFFFFF
-        ).setOrigin(0 ,0);
+            'borderV'
+            ).setOrigin(0, 0);
 
         // key definitions 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -128,9 +133,9 @@ class Play extends Phaser.Scene {
     
         // creates explosion animation 
         this.anims.create({
-            key: 'explode',
+            key: 'bubble',
             frames: this.anims.generateFrameNumbers(
-                'explosion',
+                'bubble',
                 { 
                     start: 0, 
                     end: 9, 
@@ -147,7 +152,7 @@ class Play extends Phaser.Scene {
             fontFamily: 'Tahoma',
             fontSize: '28px',
             backgroundColor: '#ffffff',
-            color: '#ffa185',
+            color: '#ff6969',
             align: 'right',
             padding: {
                 top: 5,
@@ -245,9 +250,9 @@ class Play extends Phaser.Scene {
         let boom = this.add.sprite(
             ship.x, 
             ship.y, 
-            'explosion'
+            'bubble'
         ).setOrigin(0, 0);
-        boom.anims.play('explode');
+        boom.anims.play('bubble');
         boom.on(
             'animationcomplete', 
             () => {
