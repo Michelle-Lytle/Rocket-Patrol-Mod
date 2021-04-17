@@ -4,6 +4,10 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
+        this.load.image(
+            'rocket',
+            'assets/rocket.png'
+        )
         // images 
         // background png mod 
         this.load.image(
@@ -61,6 +65,14 @@ class Play extends Phaser.Scene {
             game.config.width / 2,
             game.config.height - borderUISize - borderPadding,
             'cat'
+        ).setOrigin(0.5, 0);
+
+        // adds hat
+        this.wizHat = new Hat(
+            this,
+            game.config.width / 2,
+            game.config.height - borderUISize - borderPadding * 2,
+            'rocket'
         ).setOrigin(0.5, 0);
 
         // adds ships 
@@ -127,6 +139,7 @@ class Play extends Phaser.Scene {
 
         // key definitions 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -220,43 +233,69 @@ class Play extends Phaser.Scene {
             // rocket update 
             this.p1Rocket.update();
 
+            // hat update 
+            this.wizHat.update(this.p1Rocket);
+
             // ships update 
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
 
             // collision check 
-            this.checkCollision(this.p1Rocket, this.ship01);
-            this.checkCollision(this.p1Rocket, this.ship02);
-            this.checkCollision(this.p1Rocket, this.ship03);
+            this.checkCollision(this.p1Rocket, this.ship01, false);
+            this.checkCollision(this.p1Rocket, this.ship02, false);
+            this.checkCollision(this.p1Rocket, this.ship03, false);
+            this.checkCollision(this.wizHat, this.ship01, true);
+            this.checkCollision(this.wizHat, this.ship02, true);
+            this.checkCollision(this.wizHat, this.ship03, true);
+
+            this.checkFire(this.p1Rocket, this.wizHat);
         }
     }
 
     // checks and updates if rocket hits ship 
-    checkCollision(rocket, ship) {
+    checkCollision(rocket, ship, hat) {
         if (rocket.x + rocket.width > ship.x && 
             rocket.x < ship.x + ship.width &&
             rocket.y + rocket.height > ship.y &&
             rocket.y < ship.y + ship.height
         ) {
-            rocket.reset(); // resets rocket state 
+            if (!hat) {
+                rocket.reset(); // resets rocket state 
+            }
             this.shipExplode(ship); // plays explosion and resets ship state 
+        }
+    }
+
+    checkFire(rocket, hat) {
+        if (rocket.isFiring) {
+            hat.canFire = false;
+        }
+        else {
+            hat.canFire = true;
+        }
+        if (hat.isFiring) {
+            rocket.canFire = false;
+        }
+        else {
+            rocket.canFire = true;
         }
     }
 
     // plays animation, updates ship state, and updates score 
     shipExplode(ship) {
-        ship.alpha = 0; 
+        let animX = ship.x;
+        let animY = ship.y;
+        ship.reset(); // resets ship state 
         let boom = this.add.sprite(
-            ship.x, 
-            ship.y, 
+            animX,
+            animY,
             'bubble'
         ).setOrigin(0, 0);
         boom.anims.play('bubble');
         boom.on(
             'animationcomplete', 
             () => {
-                ship.reset(); // resets ship state 
                 boom.destroy(); // removes completed animation 
             }
         );
