@@ -17,9 +17,13 @@ Time to complete: ???
     - Weapon travels to the top of the screen, then loops back to the bottom 
     - Does not reset upon hitting a whale 
     - Cannot be used while cat is firing, and cat cannot fire while hat is firing 
-    - ***can only be used once player gets three hits***
-    - ***new image for hat*** 
+    - New image for hat 
     - *** new sfx for hat*** 
+
+10 pts - Implement parallax scrolling 
+    - Sky and hill in back move slowest 
+    - Two hills in the middle move at an average speed 
+    - Foreground moves fastest 
 
 */
 

@@ -10,13 +10,21 @@ class Play extends Phaser.Scene {
         )
         // background
         this.load.image(
-            'bg',
+            'stars',
+            'assets/stars.png'
+        );
+        this.load.image(
+            'background',
             'assets/background.png'
         );
         // cat 
         this.load.image(
             'cat',
             'assets/cat.png'
+        );
+        this.load.image(
+            'wizardHat',
+            'assets/wizardHat.png'
         );
         // whale 
         this.load.image(
@@ -58,12 +66,20 @@ class Play extends Phaser.Scene {
     create() {
 
         // adds background 
-        this.bg = this.add.tileSprite(
+        this.stars = this.add.tileSprite(
+            0,
+            0,
+            640,
+            480,
+            'stars'
+        ).setOrigin(0, 0);
+
+        this.background = this.add.tileSprite(
             0, 
             0, 
             640, 
             480, 
-            'bg'
+            'background'
         ).setOrigin(0, 0);
         
         // adds rocket 
@@ -79,7 +95,7 @@ class Play extends Phaser.Scene {
             this,
             game.config.width / 2,
             game.config.height - borderUISize - borderPadding * 2,
-            'rocket'
+            'wizardHat'
         ).setOrigin(0.5, 0);
 
         // adds ships 
@@ -111,25 +127,25 @@ class Play extends Phaser.Scene {
         ).setOrigin(0, 0);
 
         // adds borders
-        this.borderRight = this.add.image(
+        this.borderR = this.add.image(
             game.config.width - borderUISize, 
             0, 
             'borderR'
             ).setOrigin(0, 0);
 
-        this.borderLeft = this.add.image(
+        this.borderL = this.add.image(
             0, 
             0, 
             'borderL'
         ).setOrigin(0, 0);
 
-        this.borderTop = this.add.image(
+        this.borderT = this.add.image(
             0, 
             0, 
             'borderT'
         ).setOrigin(0, 0); 
 
-        this.borderBottom = this.add.tileSprite(
+        this.borderB = this.add.tileSprite(
             0, 
             game.config.height - borderUISize,
             640, 
@@ -164,7 +180,7 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Tahoma',
             fontSize: '28px',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#231942',
             color: '#ff6969',
             align: 'right',
             padding: {
@@ -228,8 +244,9 @@ class Play extends Phaser.Scene {
         // stops updating when timer is finished 
         if (!this.gameOver) {
             // background update 
-            this.bg.tilePositionX -= 3;
-            this.borderBottom.tilePositionX -= 4;
+            this.stars.tilePositionX -= 2;
+            this.background.tilePositionX -= 3;
+            this.borderB.tilePositionX -= 4;
 
             // rocket update 
             this.p1Rocket.update();

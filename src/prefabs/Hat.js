@@ -2,7 +2,7 @@ class Hat extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this); // adds hat to scene 
-        this.movementSpeed = 4; // hat movement speed, px per frame 
+        this.movementSpeed = 3; // hat movement speed, px per frame 
         this.isFiring = false; // hat firing status 
         this.canFire = true; 
         this.isLooping = false; // if hat is moving back 
