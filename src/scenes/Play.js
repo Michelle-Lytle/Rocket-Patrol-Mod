@@ -29,8 +29,8 @@ class Play extends Phaser.Scene {
         );
         // animation 
         this.load.spritesheet(
-            'bubble',
-            'assets/bubble.png',
+            'bubbleAnimation',
+            'assets/bubbleAnimation.png',
             {
                 frameWidth: 64,
                 frameHeight: 32,
@@ -158,9 +158,9 @@ class Play extends Phaser.Scene {
     
         // creates explosion animation 
         this.anims.create({
-            key: 'bubble',
+            key: 'bubbleAnimation',
             frames: this.anims.generateFrameNumbers(
-                'bubble',
+                'bubbleAnimation',
                 { 
                     start: 0, 
                     end: 9, 
@@ -306,9 +306,9 @@ class Play extends Phaser.Scene {
         let boom = this.add.sprite(
             animX,
             animY,
-            'bubble'
+            'bubbleAnimation'
         ).setOrigin(0, 0);
-        boom.anims.play('bubble');
+        boom.anims.play('bubbleAnimation');
         boom.on(
             'animationcomplete', 
             () => {
