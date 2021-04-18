@@ -4,7 +4,9 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        // audio added for mod 
+        // menu screen 
+        this.load.image('menuArt', 'assets/menuArt.png');
+        // sfx 
         this.load.audio('sfx_rocket', 'assets/meow_sfx.wav');
         this.load.audio('sfx_select', 'assets/menu_sfx.wav');
         this.load.audio('sfx_explosion', 'assets/pop_sfx.wav');
@@ -26,33 +28,15 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0 
         }
 
-        // menu text display 
-        this.add.text(
-            game.config.width / 2,
-            game.config.height / 2 - borderUISize - borderPadding,
-            'cat patrol >:3c',
-            menuConfig
-        ).setOrigin(0.5);
-
-        this.add.text(
-            game.config.width / 2,
-            game.config.height / 2,
-            'Use ←→ arrows to Move & (F) to Bubble',
-            menuConfig
-        ).setOrigin(0.5); 
-
-        menuConfig.backgroundColor = '#d042ff';
-        menuConfig.color = '#ffffff';
-        this.add.text(
-            game.config.width / 2,
-            game.config.height / 2 + borderUISize + borderPadding,
-            'Press ← for Kitten or → for Wizened Cat',
-            menuConfig
-        ).setOrigin(0.5); 
-
         // key definitions 
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); 
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT); 
+
+        this.menuArt = this.add.image(
+            0, 
+            0,
+            'menuArt'
+        ).setOrigin(0, 0);
     }
 
     update() {

@@ -9,7 +9,7 @@ Time to complete: ???
     - Artwork: changed images for background, rocket, and ships 
     - UI: added new borders and changed colors and text in UI 
     - Sound: added new sounds for the menu, rocket, and explosion 
-    - all the art and audio was made by me in Photoshop and Reaper (with voice acting from my cat) 
+    - All art and audio made in Photoshop and Reaper (with voice acting from my cat) 
 
 20 pts - Create and implement a new weapon (w/ new behavior and graphics) 
     - Added wizard hat (most code under Hat.js)
@@ -18,12 +18,17 @@ Time to complete: ???
     - Does not reset upon hitting a whale 
     - Cannot be used while cat is firing, and cat cannot fire while hat is firing 
     - New image for hat 
-    - *** new sfx for hat*** 
+    - New sfx for hat 
+    - Art and audio made in Photoshop and Reaper 
 
 10 pts - Implement parallax scrolling 
     - Sky and hill in back move slowest 
     - Two hills in the middle move at an average speed 
     - Foreground moves fastest 
+
+10 pts - Create a new title screen (e.g., new artwork, typography, layout) 
+    - Added new art for the menu screen 
+    - Art made in Clip Studio Paint 
 
 */
 
