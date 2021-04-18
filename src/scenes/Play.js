@@ -8,24 +8,22 @@ class Play extends Phaser.Scene {
             'rocket',
             'assets/rocket.png'
         )
-        // images 
-        // background png mod 
+        // background
         this.load.image(
             'bg',
             'assets/background.png'
         );
-        // cat png mod 
+        // cat 
         this.load.image(
             'cat',
             'assets/cat.png'
         );
-        // whale png mod 
+        // whale 
         this.load.image(
             'whale',
             'assets/whale.png'
         );
-        // animations 
-        // bubble png mod
+        // animation 
         this.load.spritesheet(
             'bubble',
             'assets/bubble.png',
@@ -36,14 +34,23 @@ class Play extends Phaser.Scene {
                 endFrame: 9
             }
         );
-        // borders mod 
+        // borders 
         this.load.image(
-            'borderV',
-            'assets/borderV.png'
+            'borderR',
+            'assets/borderR.png'
         );
         this.load.image(
-            'borderH',
-            'assets/borderH.png'
+            'borderL',
+            'assets/borderL.png'
+        );
+        this.load.image(
+            'borderT',
+            'assets/borderT.png'
+        );
+
+        this.load.image(
+            'borderB',
+            'assets/borderB.png'
         );
 
     }
@@ -103,39 +110,32 @@ class Play extends Phaser.Scene {
             10 
         ).setOrigin(0, 0);
 
-        // UI background 
-        this.add.rectangle(
+        // adds borders
+        this.borderRight = this.add.image(
+            game.config.width - borderUISize, 
             0, 
-            borderUISize + borderPadding, 
-            game.config.width, 
-            borderUISize * 2,
-            0Xffffff,
-        ).setOrigin(0, 0);
+            'borderR'
+            ).setOrigin(0, 0);
 
-        // borders
         this.borderLeft = this.add.image(
             0, 
             0, 
-            'borderV'
-        ).setOrigin(0, 0);
-
-        this.borderBottom = this.add.image(
-            0, 
-            game.config.height - borderUISize,
-            'borderH'
+            'borderL'
         ).setOrigin(0, 0);
 
         this.borderTop = this.add.image(
             0, 
             0, 
-            'borderH'
+            'borderT'
         ).setOrigin(0, 0); 
 
-        this.borderRight = this.add.image(
-            game.config.width - borderUISize, 
+        this.borderBottom = this.add.tileSprite(
             0, 
-            'borderV'
-            ).setOrigin(0, 0);
+            game.config.height - borderUISize,
+            640, 
+            32, 
+            'borderB'
+        ).setOrigin(0, 0); 
 
         // key definitions 
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -228,7 +228,8 @@ class Play extends Phaser.Scene {
         // stops updating when timer is finished 
         if (!this.gameOver) {
             // background update 
-            this.bg.tilePositionX -= 2;
+            this.bg.tilePositionX -= 3;
+            this.borderBottom.tilePositionX -= 4;
 
             // rocket update 
             this.p1Rocket.update();
@@ -249,6 +250,7 @@ class Play extends Phaser.Scene {
             this.checkCollision(this.wizHat, this.ship02, true);
             this.checkCollision(this.wizHat, this.ship03, true);
 
+            // checks if rocket or hat can fire 
             this.checkFire(this.p1Rocket, this.wizHat);
         }
     }
@@ -267,6 +269,7 @@ class Play extends Phaser.Scene {
         }
     }
 
+    // prevents both weapons from firing at same time 
     checkFire(rocket, hat) {
         if (rocket.isFiring) {
             hat.canFire = false;

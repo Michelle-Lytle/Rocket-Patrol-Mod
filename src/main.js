@@ -10,6 +10,17 @@ Time to complete: ???
     - UI: added new borders and changed colors and text in UI 
     - Sound: added new sounds for the menu, rocket, and explosion 
     - all the art and audio was made by me in Photoshop and Reaper (with voice acting from my cat) 
+
+20 pts - Create and implement a new weapon (w/ new behavior and graphics) 
+    - Added wizard hat (most code under Hat.js)
+    - Used with G key 
+    - Weapon travels to the top of the screen, then loops back to the bottom 
+    - Does not reset upon hitting a whale 
+    - Cannot be used while cat is firing, and cat cannot fire while hat is firing 
+    - ***can only be used once player gets three hits***
+    - ***new image for hat*** 
+    - *** new sfx for hat*** 
+
 */
 
 
