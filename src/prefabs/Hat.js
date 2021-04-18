@@ -6,7 +6,7 @@ class Hat extends Phaser.GameObjects.Sprite {
         this.isFiring = false; // hat firing status 
         this.canFire = true; 
         this.isLooping = false; // if hat is moving back 
-        this.sfxHat = scene.sound.add('sfx_rocket'); // adds hat sfx 
+        this.sfxHat = scene.sound.add('sfx_hat'); // adds hat sfx 
     }
 
     update(rocket) {

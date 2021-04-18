@@ -5,9 +5,10 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // audio added for mod 
-        this.load.audio('sfx_rocket', 'assets/meow.wav');
-        this.load.audio('sfx_select', 'assets/menu.wav');
-        this.load.audio('sfx_explosion', 'assets/pop.wav');
+        this.load.audio('sfx_rocket', 'assets/meow_sfx.wav');
+        this.load.audio('sfx_select', 'assets/menu_sfx.wav');
+        this.load.audio('sfx_explosion', 'assets/pop_sfx.wav');
+        this.load.audio('sfx_hat', 'assets/wizardHat_sfx.wav');
     }
 
     create() {

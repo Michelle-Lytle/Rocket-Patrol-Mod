@@ -4,10 +4,6 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image(
-            'rocket',
-            'assets/rocket.png'
-        )
         // background
         this.load.image(
             'stars',
