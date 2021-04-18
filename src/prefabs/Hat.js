@@ -4,7 +4,7 @@ class Hat extends Phaser.GameObjects.Sprite {
         scene.add.existing(this); // adds hat to scene 
         this.movementSpeed = 3; // hat movement speed, px per frame 
         this.isFiring = false; // hat firing status 
-        this.canFire = true; 
+        this.canFire = true; // if hat can fire 
         this.isLooping = false; // if hat is moving back 
         this.sfxHat = scene.sound.add('sfx_hat'); // adds hat sfx 
     }
@@ -12,20 +12,20 @@ class Hat extends Phaser.GameObjects.Sprite {
     update(rocket) {
         // hat movement when firing 
         if (this.isFiring) {
-            // changes hat direction when hat loops back
-            if (this.isLooping) { 
-                this.y += this.movementSpeed;
-                // resets hat when it reaches the bottom of the screen 
-                if (this.y >= game.config.height - borderUISize - borderPadding * 2) {
-                    this.reset(rocket);
-                }
-            }
-            else {
-                // hat moves up 
+            if (!this.isLooping) { 
+                // hat moves up when launched 
                 this.y -= this.movementSpeed;
                 // hat begins looping when it reaches the top of the screen
                 if(this.y < borderUISize * 3) {
                     this.isLooping = true;
+                }
+            }
+            else {
+                // hat changes direction when looping back 
+                this.y += this.movementSpeed;
+                // resets hat when it reaches the bottom of the screen 
+                if (this.y >= game.config.height - borderUISize - borderPadding * 2) {
+                    this.reset(rocket);
                 }
             }        
         } else {
@@ -57,6 +57,7 @@ class Hat extends Phaser.GameObjects.Sprite {
     reset(rocket) {
         // reset hat state 
         this.x = rocket.x; // sets hat to x position of rocket 
+        this.y = game.config.height - borderUISize - borderPadding * 2
         this.isFiring = false;
         this.isLooping = false; 
     }

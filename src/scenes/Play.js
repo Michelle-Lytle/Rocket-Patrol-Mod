@@ -18,6 +18,7 @@ class Play extends Phaser.Scene {
             'cat',
             'assets/cat.png'
         );
+        // wizard hat 
         this.load.image(
             'wizardHat',
             'assets/wizardHat.png'
@@ -60,7 +61,6 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-
         // adds background 
         this.stars = this.add.tileSprite(
             0,
@@ -275,6 +275,7 @@ class Play extends Phaser.Scene {
             rocket.y + rocket.height > ship.y &&
             rocket.y < ship.y + ship.height
         ) {
+            // hat does not reset upon collision 
             if (!hat) {
                 rocket.reset(); // resets rocket state 
             }
@@ -296,10 +297,16 @@ class Play extends Phaser.Scene {
         else {
             rocket.canFire = true;
         }
+        // prevents player from using both cat and wizard hat at the same time 
+        if (rocket.y != game.config.height - borderUISize - borderPadding && 
+            hat.y != game.config.height - borderUISize - borderPadding * 2) {
+            hat.reset(rocket); //if F and G are pressed at the same time, the hat will be reset 
+        }
     }
 
     // plays animation, updates ship state, and updates score 
     shipExplode(ship) {
+        // temporary values store ship's x and y position before it is removed 
         let animX = ship.x;
         let animY = ship.y;
         ship.reset(); // resets ship state 
